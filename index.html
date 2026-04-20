@@ -1,256 +1,216 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hur Sverige styrs – Övning åk 8</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 950px;
-      margin: auto;
-      padding: 20px;
-      line-height: 1.5;
-      background: #f7f7f7;
-      color: #222;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    .card {
-      background: white;
-      padding: 16px;
-      margin: 18px 0;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-    button {
-      display: inline-block;
-      margin: 6px 6px 6px 0;
-      padding: 10px 14px;
-      border: none;
-      border-radius: 8px;
-      background: #e0e0e0;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-    button:hover {
-      background: #d0d0d0;
-    }
-    .feedback {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-    .correct {
-      color: green;
-    }
-    .wrong {
-      color: #b00020;
-    }
-    .term {
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-    .scorebox {
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    .section-intro {
-      text-align: center;
-      margin-bottom: 12px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hur Sverige styrs</title>
+
+<style>
+body { font-family: Arial; max-width: 1000px; margin:auto; padding:20px; background:#f4f6f8;}
+h1,h2{text-align:center;}
+.card{background:white;padding:20px;margin:20px 0;border-radius:10px;}
+button{margin:5px;padding:10px;border:none;border-radius:6px;cursor:pointer;}
+.correct{color:green;}
+.wrong{color:red;}
+.feedback{font-weight:bold;}
+</style>
 </head>
+
 <body>
 
-  <h1>Hur Sverige styrs</h1>
-  <p class="section-intro">Öva på begrepp, ansvar och hur Sverige styrs.</p>
+<h1>Hur Sverige styrs</h1>
 
-  <div class="card">
-    <h2>1. Begrepp</h2>
-    <div id="terms"></div>
-  </div>
+<div class="card">
+<h2>Begrepp</h2>
+<div id="terms"></div>
+</div>
 
-  <div class="card">
-    <h2>2. Quiz</h2>
-    <div id="quiz"></div>
-  </div>
+<div class="card">
+<h2>Hur går det till?</h2>
+<div id="process"></div>
+</div>
 
-  <div class="card">
-    <h2>3. Vem ansvarar?</h2>
-    <p>Välj rätt nivå: kommun, region, stat eller EU.</p>
-    <div id="responsibility"></div>
-  </div>
+<div class="card">
+<h2>Quiz</h2>
+<div id="quiz"></div>
+</div>
 
-  <div class="card scorebox">
-    Total poäng: <span id="score">0</span>
-  </div>
+<div class="card">
+<h2>Vem ansvarar?</h2>
+<div id="responsibility"></div>
+</div>
+
+<div class="card">
+<h2>Tänk till</h2>
+<div id="reflection"></div>
+</div>
+
+<h2>Poäng: <span id="score">0</span></h2>
 
 <script>
-  let score = 0;
 
-  function updateScore() {
-    document.getElementById("score").textContent = score;
-  }
+let score = 0;
 
-  const terms = [
-    {
-      word: "Riksdag",
-      explanation: "Riksdagen är Sveriges folkvalda parlament. Den stiftar lagar och beslutar om statens budget."
-    },
-    {
-      word: "Regering",
-      explanation: "Regeringen styr landet och genomför det som riksdagen har beslutat."
-    },
-    {
-      word: "Kommun",
-      explanation: "Kommunen ansvarar för sådant nära människors vardag, till exempel skola, äldreomsorg och socialtjänst."
-    },
-    {
-      word: "Region",
-      explanation: "Regionen ansvarar främst för sjukvård, kollektivtrafik och regional utveckling."
-    },
-    {
-      word: "Stat",
-      explanation: "Staten ansvarar för sådant som gäller hela landet, till exempel polis, försvar och många lagar."
-    },
-    {
-      word: "Myndighet",
-      explanation: "En myndighet arbetar med att genomföra beslut och se till att lagar och regler följs, till exempel Skatteverket."
-    },
-    {
-      word: "Domstol",
-      explanation: "Domstolar dömer i mål och tvister och ser till att lagarna används i praktiken."
-    },
-    {
-      word: "EU",
-      explanation: "EU är ett samarbete mellan europeiska länder. Sverige bestämmer mycket själv, men vissa beslut tas gemensamt inom EU."
-    },
-    {
-      word: "Val",
-      explanation: "I val röstar medborgarna på partier och politiker som ska representera dem."
-    }
-  ];
+function updateScore(){
+document.getElementById("score").textContent = score;
+}
 
-  const quizQuestions = [
-    {
-      q: "Vem stiftar lagar i Sverige?",
-      options: ["Regeringen", "Riksdagen", "Kommunen"],
-      answer: 1
-    },
-    {
-      q: "Vad är regeringens huvuduppgift?",
-      options: ["Att döma i brottmål", "Att styra landet och verkställa beslut", "Att ansvara för sjukvård i regionen"],
-      answer: 1
-    },
-    {
-      q: "Vilken nivå ansvarar främst för skolan?",
-      options: ["Kommunen", "EU", "Domstolen"],
-      answer: 0
-    },
-    {
-      q: "Vad ansvarar regionerna främst för?",
-      options: ["Sjukvård och kollektivtrafik", "Försvar och polis", "Grundlagar"],
-      answer: 0
-    },
-    {
-      q: "Vad gör domstolar?",
-      options: ["Skapar nya lagar", "Dömer enligt lagar", "Ansvarar för kollektivtrafik"],
-      answer: 1
-    },
-    {
-      q: "Vad är en myndighet?",
-      options: ["En organisation som genomför beslut", "En grupp elever", "Samma sak som riksdagen"],
-      answer: 0
-    },
-    {
-      q: "Vad betyder det att Sverige är en demokrati?",
-      options: ["Att en person bestämmer allt", "Att folket väljer sina representanter", "Att EU bestämmer allt"],
-      answer: 1
-    },
-    {
-      q: "Vilken nivå ansvarar för polisen?",
-      options: ["Kommun", "Region", "Stat"],
-      answer: 2
-    },
-    {
-      q: "Vad är EU?",
-      options: ["Ett svenskt parti", "Ett samarbete mellan europeiska länder", "En svensk myndighet"],
-      answer: 1
-    },
-    {
-      q: "Vad är skillnaden mellan riksdag och regering?",
-      options: ["Riksdagen stiftar lagar, regeringen styr landet", "Regeringen stiftar lagar, riksdagen dömer", "Ingen skillnad"],
-      answer: 0
-    }
-  ];
+const terms = [
 
-  const responsibilityQuestions = [
-    { q: "Vem ansvarar för grundskolan?", options: ["Kommun", "Region", "Stat", "EU"], answer: 0 },
-    { q: "Vem ansvarar främst för sjukvården?", options: ["Kommun", "Region", "Stat", "EU"], answer: 1 },
-    { q: "Vem ansvarar för polisen?", options: ["Kommun", "Region", "Stat", "EU"], answer: 2 },
-    { q: "Vem ansvarar för äldreomsorgen?", options: ["Kommun", "Region", "Stat", "EU"], answer: 0 },
-    { q: "Vem ansvarar för kollektivtrafik i regionen?", options: ["Kommun", "Region", "Stat", "EU"], answer: 1 },
-    { q: "Vilken nivå handlar om samarbete mellan flera europeiska länder?", options: ["Kommun", "Region", "Stat", "EU"], answer: 3 }
-  ];
+{word:"Demokrati", explanation:"Folkstyre där medborgarna väljer politiker."},
+{word:"Proportionell demokrati", explanation:"Partier får mandat i proportion till röster."},
 
-  function renderTerms() {
-    const termsDiv = document.getElementById("terms");
-    terms.forEach(term => {
-      const div = document.createElement("div");
-      div.className = "term";
-      div.innerHTML = `<strong>${term.word}</strong><br>${term.explanation}`;
-      termsDiv.appendChild(div);
-    });
-  }
+{word:"Riksdag", explanation:"Stiftar lagar och beslutar om budget."},
+{word:"Ledamot", explanation:"En person i riksdagen."},
+{word:"Talman", explanation:"Leder riksdagen och föreslår statsminister."},
 
-  function renderQuestion(containerId, questions) {
-    const container = document.getElementById(containerId);
+{word:"Regering", explanation:"Styr landet och genomför beslut."},
+{word:"Statsminister", explanation:"Leder regeringen."},
+{word:"Statschef", explanation:"Kungen, representativ roll utan politisk makt."},
 
-    questions.forEach((item, index) => {
-      const div = document.createElement("div");
-      div.className = "term";
+{word:"Proposition", explanation:"Förslag från regeringen."},
+{word:"Motion", explanation:"Förslag från riksdagsledamöter."},
+{word:"Utskott", explanation:"Förbereder beslut i riksdagen."},
+{word:"Betänkande", explanation:"Utskottets förslag till beslut."},
 
-      const q = document.createElement("p");
-      q.innerHTML = `<strong>${index + 1}. ${item.q}</strong>`;
-      div.appendChild(q);
+{word:"Kommun", explanation:"Ansvarar för skola, äldreomsorg m.m."},
+{word:"Region", explanation:"Ansvarar för sjukvård och kollektivtrafik."},
+{word:"Stat", explanation:"Ansvarar för polis, försvar, lagar."},
 
-      const feedback = document.createElement("div");
-      feedback.className = "feedback";
+{word:"Myndighet", explanation:"Genomför beslut."},
+{word:"Domstol", explanation:"Dömer enligt lagar."},
 
-      let answered = false;
+{word:"EU", explanation:"Samarbete mellan europeiska länder."},
 
-      item.options.forEach((opt, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = opt;
-        btn.onclick = () => {
-          if (answered) return;
-          answered = true;
+{word:"Politiska partier", explanation:"Grupper som vill påverka hur samhället styrs."},
 
-          if (i === item.answer) {
-            feedback.textContent = "Rätt.";
-            feedback.className = "feedback correct";
-            score++;
-            updateScore();
-          } else {
-            feedback.textContent = "Fel. Rätt svar: " + item.options[item.answer];
-            feedback.className = "feedback wrong";
-          }
-        };
-        div.appendChild(btn);
-      });
+{word:"Socialdemokraterna", explanation:"Fokus på välfärd och jämlikhet."},
+{word:"Moderaterna", explanation:"Fokus på lägre skatter och individens ansvar."},
+{word:"Sverigedemokraterna", explanation:"Fokus på invandring och lag och ordning."},
+{word:"Centerpartiet", explanation:"Fokus på landsbygd och företagande."},
+{word:"Vänsterpartiet", explanation:"Fokus på jämlikhet och stark välfärd."},
+{word:"Kristdemokraterna", explanation:"Fokus på familj och värderingar."},
+{word:"Liberalerna", explanation:"Fokus på utbildning och individens frihet."},
+{word:"Miljöpartiet", explanation:"Fokus på miljö och klimat."}
 
-      div.appendChild(feedback);
-      container.appendChild(div);
-    });
-  }
+];
 
-  renderTerms();
-  renderQuestion("quiz", quizQuestions);
-  renderQuestion("responsibility", responsibilityQuestions);
-  updateScore();
+const processTexts = [
+"Val hålls där medborgarna röstar",
+"Riksdagen bildas",
+"Talmannen föreslår statsminister",
+"Regering bildas",
+"Förslag (proposition/motion) lämnas",
+"Utskott granskar",
+"Betänkande skrivs",
+"Riksdagen röstar",
+"Beslut genomförs"
+];
+
+const quizQuestions = [
+
+{q:"Vad är en proposition?", options:["Förslag från regeringen","Dom i domstol","Kommunbeslut"], answer:0},
+{q:"Vad är en motion?", options:["Förslag från ledamöter","EU-beslut","Lag"], answer:0},
+{q:"Vad gör riksdagen?", options:["Stiftar lagar","Driver sjukhus","Dömer"], answer:0},
+{q:"Vad gör regeringen?", options:["Styr landet","Dömer","Undervisar"], answer:0},
+{q:"Vad gör utskott?", options:["Förbereder beslut","Dömer","Styr kommun"], answer:0},
+{q:"Vad avgör mandat?", options:["Röster i val","Regeringen","Domstol"], answer:0},
+{q:"Vad gör partier?", options:["Påverkar politik","Dömer","Bygger vägar"], answer:0}
+
+];
+
+const responsibilityQuestions = [
+
+{q:"Skola?", options:["Kommun","Region","Stat","EU"], answer:0},
+{q:"Sjukvård?", options:["Kommun","Region","Stat","EU"], answer:1},
+{q:"Polis?", options:["Kommun","Region","Stat","EU"], answer:2},
+{q:"EU-samarbete?", options:["Kommun","Region","Stat","EU"], answer:3}
+
+];
+
+const reflectionQuestions = [
+"Vad är skillnaden mellan proposition och motion?",
+"Varför finns utskott?",
+"Varför finns flera partier?",
+"Varför delas makten mellan nivåer?"
+];
+
+function renderTerms(){
+const div=document.getElementById("terms");
+terms.forEach(t=>{
+let el=document.createElement("p");
+el.innerHTML="<b>"+t.word+"</b>: "+t.explanation;
+div.appendChild(el);
+});
+}
+
+function renderProcess(){
+const div=document.getElementById("process");
+processTexts.forEach(t=>{
+let el=document.createElement("p");
+el.textContent=t;
+div.appendChild(el);
+});
+}
+
+function renderQuestions(container, questions){
+const div=document.getElementById(container);
+
+questions.forEach(q=>{
+let el=document.createElement("div");
+
+let p=document.createElement("p");
+p.innerHTML="<b>"+q.q+"</b>";
+el.appendChild(p);
+
+let answered=false;
+
+q.options.forEach((opt,i)=>{
+let btn=document.createElement("button");
+btn.textContent=opt;
+
+btn.onclick=()=>{
+if(answered) return;
+answered=true;
+
+let feedback=document.createElement("div");
+
+if(i===q.answer){
+feedback.textContent="Rätt";
+feedback.className="feedback correct";
+score++;
+updateScore();
+}else{
+feedback.textContent="Fel";
+feedback.className="feedback wrong";
+}
+
+el.appendChild(feedback);
+};
+
+el.appendChild(btn);
+});
+
+div.appendChild(el);
+});
+}
+
+function renderReflection(){
+const div=document.getElementById("reflection");
+reflectionQuestions.forEach(q=>{
+let el=document.createElement("p");
+el.innerHTML="<b>"+q+"</b>";
+div.appendChild(el);
+});
+}
+
+renderTerms();
+renderProcess();
+renderQuestions("quiz",quizQuestions);
+renderQuestions("responsibility",responsibilityQuestions);
+renderReflection();
+updateScore();
+
 </script>
 
 </body>
