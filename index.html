@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hur Sverige styrs</title>
+<title>Demokrati i Sverige – Övning</title>
 
 <style>
-body { font-family: Arial; max-width: 1000px; margin:auto; padding:20px; background:#f4f6f8;}
+body {font-family: Arial; max-width: 1000px; margin:auto; padding:20px; background:#f5f5f5;}
 h1,h2{text-align:center;}
 .card{background:white;padding:20px;margin:20px 0;border-radius:10px;}
 button{margin:5px;padding:10px;border:none;border-radius:6px;cursor:pointer;}
@@ -18,7 +18,16 @@ button{margin:5px;padding:10px;border:none;border-radius:6px;cursor:pointer;}
 
 <body>
 
-<h1>Hur Sverige styrs</h1>
+<h1>Demokrati i Sverige</h1>
+
+<div class="card">
+<h2>Sammanfattning</h2>
+<p>
+Sverige är en demokrati där makten utgår från folket. Medborgarna röstar i val och väljer politiker som sitter i riksdagen.
+Riksdagen stiftar lagar och beslutar om budgeten. Regeringen styr landet och genomför besluten.
+Makten är uppdelad mellan riksdag, regering, domstolar och myndigheter.
+</p>
+</div>
 
 <div class="card">
 <h2>Begrepp</h2>
@@ -26,7 +35,7 @@ button{margin:5px;padding:10px;border:none;border-radius:6px;cursor:pointer;}
 </div>
 
 <div class="card">
-<h2>Hur går det till?</h2>
+<h2>Hur en lag blir till</h2>
 <div id="process"></div>
 </div>
 
@@ -36,13 +45,13 @@ button{margin:5px;padding:10px;border:none;border-radius:6px;cursor:pointer;}
 </div>
 
 <div class="card">
-<h2>Vem ansvarar?</h2>
+<h2>Vem bestämmer?</h2>
 <div id="responsibility"></div>
 </div>
 
 <div class="card">
-<h2>Tänk till</h2>
-<div id="reflection"></div>
+<h2>Frågor (från boken)</h2>
+<div id="questions"></div>
 </div>
 
 <h2>Poäng: <span id="score">0</span></h2>
@@ -57,65 +66,59 @@ document.getElementById("score").textContent = score;
 
 const terms = [
 
-{word:"Demokrati", explanation:"Folkstyre där medborgarna väljer politiker."},
-{word:"Proportionell demokrati", explanation:"Partier får mandat i proportion till röster."},
+{word:"Offentlighetsprincipen", explanation:"Alla har rätt att ta del av offentliga handlingar."},
+{word:"Misstroendeförklaring", explanation:"Riksdagen kan tvinga regeringen att avgå."},
+{word:"Ministerstyre", explanation:"Förbjudet i Sverige – politiker får inte styra myndigheter direkt."},
+{word:"Grundlag", explanation:"De viktigaste lagarna i Sverige."},
+{word:"Tryckfrihetsförordningen", explanation:"Skyddar rätten att publicera texter."},
+{word:"Yttrandefrihetsgrundlagen", explanation:"Skyddar rätten att uttrycka åsikter."},
 
-{word:"Riksdag", explanation:"Stiftar lagar och beslutar om budget."},
-{word:"Ledamot", explanation:"En person i riksdagen."},
-{word:"Talman", explanation:"Leder riksdagen och föreslår statsminister."},
+{word:"Proportionella val", explanation:"Mandat fördelas efter hur många röster partier får."},
+{word:"Allmän rösträtt", explanation:"Alla vuxna medborgare får rösta."},
+{word:"Personröst", explanation:"Man kan rösta på en specifik kandidat."},
+{word:"Valkrets", explanation:"Ett geografiskt område i valet."},
 
-{word:"Regering", explanation:"Styr landet och genomför beslut."},
+{word:"Riksdagsledamot", explanation:"En person som sitter i riksdagen."},
+{word:"Mandat", explanation:"Plats i riksdagen."},
+{word:"Talman", explanation:"Leder riksdagen."},
+{word:"Utskott", explanation:"Förbereder beslut."},
+{word:"Motion", explanation:"Förslag från ledamöter."},
+
+{word:"Regering", explanation:"Styr landet."},
 {word:"Statsminister", explanation:"Leder regeringen."},
-{word:"Statschef", explanation:"Kungen, representativ roll utan politisk makt."},
-
 {word:"Proposition", explanation:"Förslag från regeringen."},
-{word:"Motion", explanation:"Förslag från riksdagsledamöter."},
-{word:"Utskott", explanation:"Förbereder beslut i riksdagen."},
-{word:"Betänkande", explanation:"Utskottets förslag till beslut."},
-
-{word:"Kommun", explanation:"Ansvarar för skola, äldreomsorg m.m."},
-{word:"Region", explanation:"Ansvarar för sjukvård och kollektivtrafik."},
-{word:"Stat", explanation:"Ansvarar för polis, försvar, lagar."},
-
+{word:"Budgetproposition", explanation:"Förslag om statens ekonomi."},
 {word:"Myndighet", explanation:"Genomför beslut."},
-{word:"Domstol", explanation:"Dömer enligt lagar."},
 
-{word:"EU", explanation:"Samarbete mellan europeiska länder."},
+{word:"Koalitionsregering", explanation:"Flera partier styr tillsammans."},
+{word:"Minoritet", explanation:"Mindre än hälften."},
+{word:"Majoritet", explanation:"Mer än hälften."},
 
-{word:"Politiska partier", explanation:"Grupper som vill påverka hur samhället styrs."},
+{word:"Kommun", explanation:"Ansvarar för skola och omsorg."},
+{word:"Region", explanation:"Ansvarar för sjukvård."},
 
-{word:"Socialdemokraterna", explanation:"Fokus på välfärd och jämlikhet."},
-{word:"Moderaterna", explanation:"Fokus på lägre skatter och individens ansvar."},
-{word:"Sverigedemokraterna", explanation:"Fokus på invandring och lag och ordning."},
-{word:"Centerpartiet", explanation:"Fokus på landsbygd och företagande."},
-{word:"Vänsterpartiet", explanation:"Fokus på jämlikhet och stark välfärd."},
-{word:"Kristdemokraterna", explanation:"Fokus på familj och värderingar."},
-{word:"Liberalerna", explanation:"Fokus på utbildning och individens frihet."},
-{word:"Miljöpartiet", explanation:"Fokus på miljö och klimat."}
+{word:"EU", explanation:"Samarbete mellan länder i Europa."}
 
 ];
 
 const processTexts = [
-"Val hålls där medborgarna röstar",
-"Riksdagen bildas",
-"Talmannen föreslår statsminister",
-"Regering bildas",
-"Förslag (proposition/motion) lämnas",
-"Utskott granskar",
-"Betänkande skrivs",
-"Riksdagen röstar",
-"Beslut genomförs"
+"1. Regeringen lämnar en proposition",
+"2. Ledamöter kan lämna motioner",
+"3. Utskott granskar förslaget",
+"4. Utskottet skriver ett betänkande",
+"5. Riksdagen debatterar",
+"6. Riksdagen röstar",
+"7. Beslut genomförs av myndigheter"
 ];
 
 const quizQuestions = [
 
-{q:"Vad är en proposition?", options:["Förslag från regeringen","Dom i domstol","Kommunbeslut"], answer:0},
-{q:"Vad är en motion?", options:["Förslag från ledamöter","EU-beslut","Lag"], answer:0},
-{q:"Vad gör riksdagen?", options:["Stiftar lagar","Driver sjukhus","Dömer"], answer:0},
-{q:"Vad gör regeringen?", options:["Styr landet","Dömer","Undervisar"], answer:0},
+{q:"Vad är en motion?", options:["Förslag från ledamot","Dom","EU-lag"], answer:0},
+{q:"Vad gör riksdagen?", options:["Stiftar lagar","Dömer","Driver sjukhus"], answer:0},
+{q:"Vad är en proposition?", options:["Förslag från regering","Valresultat","Dom"], answer:0},
 {q:"Vad gör utskott?", options:["Förbereder beslut","Dömer","Styr kommun"], answer:0},
-{q:"Vad avgör mandat?", options:["Röster i val","Regeringen","Domstol"], answer:0},
-{q:"Vad gör partier?", options:["Påverkar politik","Dömer","Bygger vägar"], answer:0}
+{q:"Vad är proportionella val?", options:["Mandat efter röster","Slump","Kung bestämmer"], answer:0},
+{q:"Vad är offentlighetsprincipen?", options:["Rätt att ta del av handlingar","Hemliga lagar","EU-regel"], answer:0}
 
 ];
 
@@ -123,16 +126,20 @@ const responsibilityQuestions = [
 
 {q:"Skola?", options:["Kommun","Region","Stat","EU"], answer:0},
 {q:"Sjukvård?", options:["Kommun","Region","Stat","EU"], answer:1},
-{q:"Polis?", options:["Kommun","Region","Stat","EU"], answer:2},
-{q:"EU-samarbete?", options:["Kommun","Region","Stat","EU"], answer:3}
+{q:"Försvar?", options:["Kommun","Region","Stat","EU"], answer:2},
+{q:"EU-frågor?", options:["Kommun","Region","Stat","EU"], answer:3}
 
 ];
 
-const reflectionQuestions = [
-"Vad är skillnaden mellan proposition och motion?",
-"Varför finns utskott?",
-"Varför finns flera partier?",
-"Varför delas makten mellan nivåer?"
+const bookQuestions = [
+
+"Vad skiljer statschefens roll från statsministerns?",
+"Vad är en grundlag?",
+"Vilka fyra grundlagar har Sverige?",
+"Hur går det till att stifta en lag?",
+"Varför är det viktigt att makten granskas?",
+"Vilka bestämmer över olika frågor i samhället?"
+
 ];
 
 function renderTerms(){
@@ -196,8 +203,8 @@ div.appendChild(el);
 }
 
 function renderReflection(){
-const div=document.getElementById("reflection");
-reflectionQuestions.forEach(q=>{
+const div=document.getElementById("questions");
+bookQuestions.forEach(q=>{
 let el=document.createElement("p");
 el.innerHTML="<b>"+q+"</b>";
 div.appendChild(el);
