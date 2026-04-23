@@ -4,491 +4,222 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hur Sverige styrs</title>
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f6f9;
-    color: #1f2937;
-    line-height: 1.6;
-  }
-
-  header {
-    background: #1e3a8a;
-    color: white;
-    text-align: center;
-    padding: 24px 16px;
-  }
-
-  header h1 {
-    margin: 0 0 8px 0;
-  }
-
-  nav {
-    background: #dbe4ff;
-    padding: 12px;
-    text-align: center;
-  }
-
-  nav a {
-    color: #1e3a8a;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-  }
-
-  section {
-    background: white;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
-
-  h2 {
-    color: #1e3a8a;
-    margin-top: 0;
-  }
-
-  h3 {
-    color: #1e40af;
-    margin-top: 24px;
-  }
-
-  .card {
-    background: #eef2ff;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-  }
-
-  .question {
-    border-bottom: 1px solid #e5e7eb;
-    padding: 14px 0 18px 0;
-  }
-
-  .question:last-child {
-    border-bottom: none;
-  }
-
-  button {
-    display: block;
-    width: 100%;
-    max-width: 520px;
-    margin: 6px 0;
-    padding: 10px 12px;
-    border: none;
-    border-radius: 8px;
-    background: #1e3a8a;
-    color: white;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1rem;
-  }
-
-  button:hover {
-    background: #3749c6;
-  }
-
-  .small {
-    color: #4b5563;
-    font-size: 0.95rem;
-  }
-
-  @media (max-width: 700px) {
-    section {
-      margin: 12px;
-      padding: 16px;
-    }
-
-    nav a {
-      display: inline-block;
-      margin: 6px 8px;
-    }
-  }
+body {font-family: Arial, sans-serif; margin:0; background:#f4f6f9; color:#1f2937;}
+header {background:#1e3a8a; color:white; text-align:center; padding:20px;}
+section {background:white; margin:20px; padding:20px; border-radius:10px;}
+h2 {color:#1e3a8a;}
+h3 {margin-top:25px;}
+button {
+  display:block;
+  margin:6px 0;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  background:#1e3a8a;
+  color:white;
+  cursor:pointer;
+}
+button:hover {background:#3749c6;}
+textarea {width:100%; height:60px; margin:5px 0;}
+input {width:100%; padding:8px; margin-bottom:10px;}
+.hidden {display:none;}
+.feedback {font-weight:bold; margin-top:5px;}
+.topbox {background:#eef2ff; padding:10px; border-radius:6px;}
 </style>
+
 </head>
 <body>
 
 <header>
-  <h1>Hur Sverige styrs</h1>
-  <p>Demokrati, riksdag, regering, lagar och politiska partier</p>
+<h1>Hur Sverige styrs</h1>
+<p>Träna, förstå och resonera</p>
 </header>
 
-<nav>
-  <a href="#demokrati">Demokrati</a>
-  <a href="#riksdagen">Riksdagen</a>
-  <a href="#lag">Lag</a>
-  <a href="#nivaer">Nivåer</a>
-  <a href="#begrepp">Begrepp</a>
-  <a href="#partier">Partier</a>
-  <a href="#quiz">Quiz</a>
-</nav>
-
-<section id="demokrati">
-  <h2>Demokrati i Sverige</h2>
-  <p>
-    Sverige är en demokrati. Det betyder att makten ytterst utgår från folket.
-    Medborgarna röstar i val och väljer politiker som representerar dem.
-    Sverige är en representativ demokrati, vilket betyder att folket väljer
-    representanter som fattar beslut åt dem.
-  </p>
-  <p>
-    Sverige är också en parlamentarisk demokrati. Det innebär att regeringen
-    måste ha riksdagens stöd, eller i alla fall tolereras av riksdagen, för att
-    kunna styra landet.
-  </p>
-  <p>
-    Sverige är dessutom en monarki. Kungen är statschef, men har ingen politisk
-    makt. Den politiska makten ligger hos riksdagen och regeringen.
-  </p>
-</section>
-
-<section id="riksdagen">
-  <h2>Riksdagen</h2>
-  <p>
-    Riksdagen är Sveriges folkvalda församling och består av 349 ledamöter.
-    Riksdagen är den högsta beslutande församlingen i landet.
-  </p>
-  <ul>
-    <li>Riksdagen stiftar lagar</li>
-    <li>Riksdagen beslutar om statens budget</li>
-    <li>Riksdagen granskar regeringen</li>
-    <li>Riksdagen röstar om statsminister</li>
-  </ul>
-  <p>
-    Talmannen leder riksdagens arbete. Inom riksdagen finns utskott som
-    förbereder frågor innan hela riksdagen fattar beslut.
-  </p>
+<section class="topbox">
+<h2>Elev</h2>
+<input id="name" placeholder="Skriv ditt namn">
+<p><b>Poäng:</b> <span id="score">0</span> / 40</p>
+<button onclick="resetQuiz()">Nollställ quiz</button>
+<button onclick="copyResult()">Kopiera resultat</button>
+<p id="msg"></p>
 </section>
 
 <section>
-  <h2>Regeringen</h2>
-  <p>
-    Regeringen styr landet och leds av statsministern. Regeringen ansvarar för
-    att genomföra riksdagens beslut och kan lämna förslag till riksdagen.
-    Sådana förslag kallas propositioner.
-  </p>
-  <p>
-    Efter ett val föreslår talmannen en statsminister. Riksdagen röstar sedan om
-    förslaget. Om riksdagen accepterar förslaget kan en regering bildas.
-  </p>
-</section>
-
-<section id="lag">
-  <h2>Så blir en lag till</h2>
-  <ol>
-    <li>Ett förslag lämnas in, antingen som proposition eller motion</li>
-    <li>Ett utskott granskar frågan</li>
-    <li>Utskottet skriver ett betänkande</li>
-    <li>Frågan debatteras i riksdagen</li>
-    <li>Riksdagen röstar</li>
-    <li>Om förslaget går igenom blir det ett beslut som genomförs</li>
-  </ol>
-</section>
-
-<section id="nivaer">
-  <h2>Kommun, region, stat och EU</h2>
-  <div class="card"><b>Kommun</b> – ansvarar bland annat för grundskola, förskola, äldreomsorg, socialtjänst och bibliotek.</div>
-  <div class="card"><b>Region</b> – ansvarar bland annat för sjukvård, kollektivtrafik, tandvård och regional utveckling.</div>
-  <div class="card"><b>Stat</b> – ansvarar bland annat för lagar, polis, försvar, domstolar och utrikespolitik.</div>
-  <div class="card"><b>EU</b> – ett samarbete mellan europeiska länder där vissa frågor beslutas gemensamt.</div>
-</section>
-
-<section id="begrepp">
-  <h2>Begrepp</h2>
-  <div class="card"><b>Demokrati</b> – folkstyre.</div>
-  <div class="card"><b>Representativ demokrati</b> – folket väljer representanter som fattar beslut åt dem.</div>
-  <div class="card"><b>Parlamentarism</b> – regeringen måste ha riksdagens stöd.</div>
-  <div class="card"><b>Ledamot</b> – person som sitter i riksdagen.</div>
-  <div class="card"><b>Talman</b> – leder riksdagens arbete.</div>
-  <div class="card"><b>Utskott</b> – grupp i riksdagen som förbereder beslut.</div>
-  <div class="card"><b>Proposition</b> – förslag från regeringen.</div>
-  <div class="card"><b>Motion</b> – förslag från en eller flera riksdagsledamöter.</div>
-  <div class="card"><b>Betänkande</b> – utskottets förslag till beslut.</div>
-  <div class="card"><b>Mandat</b> – plats i riksdagen.</div>
-  <div class="card"><b>Majoritet</b> – mer än hälften.</div>
-  <div class="card"><b>Minoritet</b> – mindre än hälften.</div>
-  <div class="card"><b>Proportionella val</b> – partier får mandat i proportion till hur många röster de fått.</div>
-  <div class="card"><b>Statschef</b> – Sveriges kung, med representativ roll.</div>
-  <div class="card"><b>Statsminister</b> – leder regeringen.</div>
-  <div class="card"><b>Myndighet</b> – genomför beslut som fattats av riksdag och regering.</div>
-  <div class="card"><b>Grundlag</b> – de viktigaste lagarna i Sverige.</div>
-  <div class="card"><b>Offentlighetsprincipen</b> – rätt att ta del av offentliga handlingar.</div>
-  <div class="card"><b>Ministerstyre</b> – förbjudet i Sverige; ministrar får inte styra myndigheter i enskilda ärenden.</div>
-  <div class="card"><b>Allmän rösträtt</b> – alla röstberättigade medborgare får rösta.</div>
-  <div class="card"><b>Personröst</b> – möjlighet att rösta på en särskild kandidat.</div>
-  <div class="card"><b>Valkrets</b> – geografiskt område i ett val.</div>
-</section>
-
-<section id="partier">
-  <h2>Politiska partier i Sverige</h2>
-  <div class="card"><b>Socialdemokraterna (S)</b> – betonar välfärd, jämlikhet och en stark offentlig sektor.</div>
-  <div class="card"><b>Moderaterna (M)</b> – betonar arbete, lägre skatter och individens ansvar.</div>
-  <div class="card"><b>Sverigedemokraterna (SD)</b> – betonar invandring, lag och ordning och nationell identitet.</div>
-  <div class="card"><b>Centerpartiet (C)</b> – betonar landsbygd, företagande och decentralisering.</div>
-  <div class="card"><b>Vänsterpartiet (V)</b> – betonar jämlikhet, välfärd och minskade ekonomiska skillnader.</div>
-  <div class="card"><b>Kristdemokraterna (KD)</b> – betonar familj, trygghet och socialt ansvar.</div>
-  <div class="card"><b>Liberalerna (L)</b> – betonar skola, demokrati och individens frihet.</div>
-  <div class="card"><b>Miljöpartiet (MP)</b> – betonar klimat, miljö och hållbar utveckling.</div>
+<h2>Fakta</h2>
+<p>Sverige är en demokrati där makten utgår från folket. Medborgarna röstar i val och väljer politiker.</p>
+<p>Sverige är en representativ och parlamentarisk demokrati. Regeringen måste ha stöd av riksdagen.</p>
+<p>Kungen är statschef men har ingen politisk makt.</p>
 </section>
 
 <section id="quiz">
-  <h2>Quiz</h2>
-  <p class="small">Välj det alternativ du tycker är rätt. Rätt svar blir grönt och fel svar blir rött.</p>
-
-  <script>
-    function check(btn, correct) {
-      btn.style.background = correct ? "green" : "red";
-    }
-  </script>
-
-  <h3>Del 1: Demokrati och statsskick</h3>
-
-  <div class="question">
-    <p><b>1. Vad betyder demokrati?</b></p>
-    <button onclick="check(this,true)">Att folket har makten</button>
-    <button onclick="check(this,false)">Att kungen bestämmer</button>
-    <button onclick="check(this,false)">Att militären styr landet</button>
-    <button onclick="check(this,false)">Att företag styr landet</button>
-  </div>
-
-  <div class="question">
-    <p><b>2. Vad betyder representativ demokrati?</b></p>
-    <button onclick="check(this,true)">Att folket väljer politiker som fattar beslut åt dem</button>
-    <button onclick="check(this,false)">Att alla röstar om varje lag direkt</button>
-    <button onclick="check(this,false)">Att kungen styr tillsammans med riksdagen</button>
-    <button onclick="check(this,false)">Att domstolarna bestämmer politiken</button>
-  </div>
-
-  <div class="question">
-    <p><b>3. Vad innebär parlamentarism?</b></p>
-    <button onclick="check(this,true)">Att regeringen måste ha riksdagens stöd</button>
-    <button onclick="check(this,false)">Att kungen väljer regeringen</button>
-    <button onclick="check(this,false)">Att domstolarna styr landet</button>
-    <button onclick="check(this,false)">Att kommunerna bestämmer över staten</button>
-  </div>
-
-  <div class="question">
-    <p><b>4. Vem är statschef i Sverige?</b></p>
-    <button onclick="check(this,true)">Kungen</button>
-    <button onclick="check(this,false)">Statsministern</button>
-    <button onclick="check(this,false)">Talmannen</button>
-    <button onclick="check(this,false)">Chefen för Högsta domstolen</button>
-  </div>
-
-  <div class="question">
-    <p><b>5. Har kungen politisk makt i Sverige?</b></p>
-    <button onclick="check(this,true)">Nej</button>
-    <button onclick="check(this,false)">Ja, han bestämmer över regeringen</button>
-    <button onclick="check(this,false)">Ja, han stiftar lagar</button>
-    <button onclick="check(this,false)">Ja, han bestämmer budgeten</button>
-  </div>
-
-  <div class="question">
-    <p><b>6. Vad är allmän rösträtt?</b></p>
-    <button onclick="check(this,true)">Att alla röstberättigade medborgare får rösta</button>
-    <button onclick="check(this,false)">Att bara partiledare får rösta</button>
-    <button onclick="check(this,false)">Att alla barn får rösta</button>
-    <button onclick="check(this,false)">Att kungen får två röster</button>
-  </div>
-
-  <div class="question">
-    <p><b>7. Vad är ett val?</b></p>
-    <button onclick="check(this,true)">När medborgare röstar på partier och kandidater</button>
-    <button onclick="check(this,false)">När regeringen skriver lagar</button>
-    <button onclick="check(this,false)">När domstolar dömer i mål</button>
-    <button onclick="check(this,false)">När myndigheter genomför beslut</button>
-  </div>
-
-  <div class="question">
-    <p><b>8. Vad är proportionella val?</b></p>
-    <button onclick="check(this,true)">Att partier får mandat i proportion till rösterna</button>
-    <button onclick="check(this,false)">Att största partiet får alla mandat</button>
-    <button onclick="check(this,false)">Att kungen delar ut mandat</button>
-    <button onclick="check(this,false)">Att bara två partier får vara med</button>
-  </div>
-
-  <div class="question">
-    <p><b>9. Vad är ett mandat?</b></p>
-    <button onclick="check(this,true)">En plats i riksdagen</button>
-    <button onclick="check(this,false)">En lag</button>
-    <button onclick="check(this,false)">En myndighet</button>
-    <button onclick="check(this,false)">En omröstning</button>
-  </div>
-
-  <div class="question">
-    <p><b>10. Vad betyder majoritet?</b></p>
-    <button onclick="check(this,true)">Mer än hälften</button>
-    <button onclick="check(this,false)">Mindre än hälften</button>
-    <button onclick="check(this,false)">Exakt samma antal</button>
-    <button onclick="check(this,false)">Ingen röstar</button>
-  </div>
-
-  <h3>Del 2: Riksdag, regering och lagar</h3>
-
-  <div class="question">
-    <p><b>11. Hur många ledamöter finns i Sveriges riksdag?</b></p>
-    <button onclick="check(this,true)">349</button>
-    <button onclick="check(this,false)">100</button>
-    <button onclick="check(this,false)">250</button>
-    <button onclick="check(this,false)">500</button>
-  </div>
-
-  <div class="question">
-    <p><b>12. Vad gör riksdagen?</b></p>
-    <button onclick="check(this,true)">Stiftar lagar och beslutar om budgeten</button>
-    <button onclick="check(this,false)">Driver sjukhus</button>
-    <button onclick="check(this,false)">Undervisar i skolor</button>
-    <button onclick="check(this,false)">Dömer i brottmål</button>
-  </div>
-
-  <div class="question">
-    <p><b>13. Vad är en ledamot?</b></p>
-    <button onclick="check(this,true)">En person som sitter i riksdagen</button>
-    <button onclick="check(this,false)">En person som leder regeringen</button>
-    <button onclick="check(this,false)">En domare i tingsrätten</button>
-    <button onclick="check(this,false)">En chef på en myndighet</button>
-  </div>
-
-  <div class="question">
-    <p><b>14. Vad gör talmannen?</b></p>
-    <button onclick="check(this,true)">Leder riksdagens arbete</button>
-    <button onclick="check(this,false)">Styr en region</button>
-    <button onclick="check(this,false)">Är statschef</button>
-    <button onclick="check(this,false)">Leder Polismyndigheten</button>
-  </div>
-
-  <div class="question">
-    <p><b>15. Vad gör regeringen?</b></p>
-    <button onclick="check(this,true)">Styr landet och genomför riksdagens beslut</button>
-    <button onclick="check(this,false)">Dömer i domstol</button>
-    <button onclick="check(this,false)">Bestämmer över alla kommuner direkt</button>
-    <button onclick="check(this,false)">Skriver betyg i skolan</button>
-  </div>
-
-  <div class="question">
-    <p><b>16. Vem leder regeringen?</b></p>
-    <button onclick="check(this,true)">Statsministern</button>
-    <button onclick="check(this,false)">Talmannen</button>
-    <button onclick="check(this,false)">Kungen</button>
-    <button onclick="check(this,false)">Justitieombudsmannen</button>
-  </div>
-
-  <div class="question">
-    <p><b>17. Vad är en proposition?</b></p>
-    <button onclick="check(this,true)">Ett förslag från regeringen till riksdagen</button>
-    <button onclick="check(this,false)">En dom från en domstol</button>
-    <button onclick="check(this,false)">Ett förslag från EU till kommunen</button>
-    <button onclick="check(this,false)">En hemlig handling</button>
-  </div>
-
-  <div class="question">
-    <p><b>18. Vad är en motion?</b></p>
-    <button onclick="check(this,true)">Ett förslag från en eller flera riksdagsledamöter</button>
-    <button onclick="check(this,false)">Ett förslag från en domstol</button>
-    <button onclick="check(this,false)">En order från kungen</button>
-    <button onclick="check(this,false)">En lag som redan gäller</button>
-  </div>
-
-  <div class="question">
-    <p><b>19. Vad gör ett utskott?</b></p>
-    <button onclick="check(this,true)">Förbereder frågor innan riksdagen beslutar</button>
-    <button onclick="check(this,false)">Dömer i brottsmål</button>
-    <button onclick="check(this,false)">Leder regionen</button>
-    <button onclick="check(this,false)">Bestämmer över skolor</button>
-  </div>
-
-  <div class="question">
-    <p><b>20. Vad är ett betänkande?</b></p>
-    <button onclick="check(this,true)">Utskottets förslag till beslut</button>
-    <button onclick="check(this,false)">En dom från Högsta domstolen</button>
-    <button onclick="check(this,false)">En budget från regionen</button>
-    <button onclick="check(this,false)">Ett valresultat</button>
-  </div>
-
-  <h3>Del 3: Nivåer, partier och ansvar</h3>
-
-  <div class="question">
-    <p><b>21. Vad gör en myndighet?</b></p>
-    <button onclick="check(this,true)">Genomför beslut som fattats av riksdag och regering</button>
-    <button onclick="check(this,false)">Stiftar lagar</button>
-    <button onclick="check(this,false)">Röstar fram statsministern</button>
-    <button onclick="check(this,false)">Bestämmer över domstolarna</button>
-  </div>
-
-  <div class="question">
-    <p><b>22. Vem ansvarar främst för grundskolan?</b></p>
-    <button onclick="check(this,true)">Kommunen</button>
-    <button onclick="check(this,false)">Regionen</button>
-    <button onclick="check(this,false)">EU</button>
-    <button onclick="check(this,false)">Domstolarna</button>
-  </div>
-
-  <div class="question">
-    <p><b>23. Vem ansvarar främst för sjukvården?</b></p>
-    <button onclick="check(this,true)">Regionen</button>
-    <button onclick="check(this,false)">Kommunen</button>
-    <button onclick="check(this,false)">Biblioteken</button>
-    <button onclick="check(this,false)">Riksdagen ensam</button>
-  </div>
-
-  <div class="question">
-    <p><b>24. Vem ansvarar för polis och försvar?</b></p>
-    <button onclick="check(this,true)">Staten</button>
-    <button onclick="check(this,false)">Regionen</button>
-    <button onclick="check(this,false)">Kommunen</button>
-    <button onclick="check(this,false)">Skolnämnden</button>
-  </div>
-
-  <div class="question">
-    <p><b>25. Vad är EU?</b></p>
-    <button onclick="check(this,true)">Ett samarbete mellan europeiska länder</button>
-    <button onclick="check(this,false)">Ett svenskt parti</button>
-    <button onclick="check(this,false)">En svensk domstol</button>
-    <button onclick="check(this,false)">En kommun i Sverige</button>
-  </div>
-
-  <div class="question">
-    <p><b>26. Vad skiljer politiska partier åt?</b></p>
-    <button onclick="check(this,true)">Deras idéer om hur samhället ska styras</button>
-    <button onclick="check(this,false)">Vilket språk de talar</button>
-    <button onclick="check(this,false)">Hur många skolor de äger</button>
-    <button onclick="check(this,false)">Vilka domare de anställer</button>
-  </div>
-
-  <div class="question">
-    <p><b>27. Vilket parti betonar ofta miljö och klimat mest?</b></p>
-    <button onclick="check(this,true)">Miljöpartiet</button>
-    <button onclick="check(this,false)">Moderaterna</button>
-    <button onclick="check(this,false)">Kristdemokraterna</button>
-    <button onclick="check(this,false)">Sverigedemokraterna</button>
-  </div>
-
-  <div class="question">
-    <p><b>28. Vilket parti betonar ofta välfärd och jämlikhet?</b></p>
-    <button onclick="check(this,true)">Socialdemokraterna</button>
-    <button onclick="check(this,false)">Liberalerna</button>
-    <button onclick="check(this,false)">Centerpartiet</button>
-    <button onclick="check(this,false)">Moderaterna</button>
-  </div>
-
-  <div class="question">
-    <p><b>29. Vad betyder minoritet?</b></p>
-    <button onclick="check(this,true)">Mindre än hälften</button>
-    <button onclick="check(this,false)">Mer än hälften</button>
-    <button onclick="check(this,false)">Alla röster tillsammans</button>
-    <button onclick="check(this,false)">Samma som majoritet</button>
-  </div>
-
-  <div class="question">
-    <p><b>30. Vad är offentlighetsprincipen?</b></p>
-    <button onclick="check(this,true)">Rätten att ta del av offentliga handlingar</button>
-    <button onclick="check(this,false)">Att regeringen får läsa privata meddelanden</button>
-    <button onclick="check(this,false)">Att alla domar hålls hemliga</button>
-    <button onclick="check(this,false)">Att kommunerna bestämmer över riksdagen</button>
-  </div>
+<h2>Quiz (träning)</h2>
 </section>
+
+<section>
+<h2>Resonera och argumentera</h2>
+<p><b>Instruktion:</b> Svara steg för steg. Titta på exempel efteråt.</p>
+
+<h3>1. Riksdag vs regering</h3>
+<textarea id="r1" placeholder="Vad gör riksdagen?"></textarea>
+<textarea id="r2" placeholder="Vad gör regeringen?"></textarea>
+<textarea id="r3" placeholder="Jag tycker..."></textarea>
+<textarea id="r4" placeholder="Det beror på att..."></textarea>
+<textarea id="r5" placeholder="Ett exempel..."></textarea>
+<textarea id="r6" placeholder="Annat perspektiv..."></textarea>
+<textarea id="r7" placeholder="Bemöt..."></textarea>
+<textarea id="r8" placeholder="Slutsats..."></textarea>
+
+<button onclick="toggle('ex1')">Visa exempel</button>
+<div id="ex1" class="hidden">
+<p>Riksdagen har mest makt eftersom den stiftar lagar och bestämmer budget. Regeringen genomför besluten men måste ha riksdagens stöd.</p>
+</div>
+
+<h3>2. Varför finns utskott?</h3>
+<textarea id="u1" placeholder="Utskott behövs eftersom..."></textarea>
+<textarea id="u2" placeholder="Det leder till..."></textarea>
+<textarea id="u3" placeholder="Exempel..."></textarea>
+<textarea id="u4" placeholder="Annat perspektiv..."></textarea>
+<textarea id="u5" placeholder="Slutsats..."></textarea>
+
+<button onclick="toggle('ex2')">Visa exempel</button>
+<div id="ex2" class="hidden">
+<p>Utskott behövs för att förbereda beslut så att lagar blir bättre genomtänkta.</p>
+</div>
+
+<h3>3. Majoritet vs minoritet</h3>
+<textarea id="m1" placeholder="Fördel majoritet..."></textarea>
+<textarea id="m2" placeholder="Nackdel majoritet..."></textarea>
+<textarea id="m3" placeholder="Fördel minoritet..."></textarea>
+<textarea id="m4" placeholder="Nackdel minoritet..."></textarea>
+<textarea id="m5" placeholder="Jag tycker..."></textarea>
+
+<button onclick="toggle('ex3')">Visa exempel</button>
+<div id="ex3" class="hidden">
+<p>Majoritet gör beslut enklare. Minoritet kräver samarbete. Fler perspektiv tas med i minoritetsregering.</p>
+</div>
+
+</section>
+
+<script>
+
+let score = 0;
+
+function updateScore(){
+document.getElementById("score").textContent = score;
+}
+
+function resetQuiz(){
+location.reload();
+}
+
+function check(btn, correct, qDiv, correctText){
+
+if(btn.dataset.clicked === "true") return;
+btn.dataset.clicked = "true";
+
+let feedback = qDiv.querySelector(".feedback");
+if(!feedback){
+feedback = document.createElement("div");
+feedback.className="feedback";
+qDiv.appendChild(feedback);
+}
+
+if(correct){
+btn.style.background="green";
+feedback.textContent="Rätt!";
+score++;
+}else{
+btn.style.background="red";
+feedback.textContent="Fel. Rätt svar: " + correctText;
+}
+
+updateScore();
+}
+
+function toggle(id){
+document.getElementById(id).classList.toggle("hidden");
+}
+
+function addQ(q,a,c){
+let div=document.createElement("div");
+div.innerHTML="<b>"+q+"</b>";
+
+a.forEach((opt,i)=>{
+let btn=document.createElement("button");
+btn.textContent=opt;
+
+btn.onclick=()=>check(btn,i===c,div,a[c]);
+
+div.appendChild(btn);
+});
+
+quiz.appendChild(div);
+}
+
+const quiz = document.getElementById("quiz");
+
+/* 40 frågor */
+addQ("Vad är demokrati?",["Folket bestämmer","Kungen","Militär","Företag"],0);
+addQ("Vad är representativ demokrati?",["Man väljer politiker","Alla röstar","Kung styr","Domstol"],0);
+addQ("Vad innebär parlamentarism?",["Regeringen behöver stöd","Kung styr","Domstol styr","EU styr"],0);
+addQ("Vem är statschef?",["Kungen","Statsminister","Talman","Domare"],0);
+addQ("Har kungen makt?",["Nej","Ja","I krig","I val"],0);
+addQ("Vad är rösträtt?",["Rätt att rösta","Bestämma lag","Döma","Styra"],0);
+addQ("Vad är val?",["Rösta","Lag","Dom","Debatt"],0);
+addQ("Vad är proportionella val?",["Mandat efter röster","Vinnaren får allt","Slump","Kung"],0);
+
+addQ("Hur många ledamöter?",["349","100","200","500"],0);
+addQ("Vad gör riksdagen?",["Stiftar lagar","Dömer","Skola","Vård"],0);
+addQ("Vad är ledamot?",["Person i riksdagen","Statsminister","Domare","Chef"],0);
+addQ("Vad gör talman?",["Leder riksdagen","Kung","Regering","Domare"],0);
+addQ("Vad gör regeringen?",["Styr landet","Dömer","Skola","Polis"],0);
+addQ("Vem leder regeringen?",["Statsminister","Kung","Talman","Domare"],0);
+addQ("Vad är proposition?",["Förslag regering","Dom","Lag","Val"],0);
+addQ("Vad är motion?",["Förslag ledamot","Lag","Dom","EU"],0);
+addQ("Vad gör utskott?",["Förbereder beslut","Dömer","Region","Polis"],0);
+addQ("Vad är betänkande?",["Utskottets förslag","Dom","Lag","Val"],0);
+addQ("Majoritet?",["Fler än hälften","Mindre","Lika","Ingen"],0);
+addQ("Minoritet?",["Mindre än hälften","Fler","Alla","Ingen"],0);
+
+addQ("Vad händer först?",["Förslag","Omröstning","Beslut","Dom"],0);
+addQ("Efter utskott?",["Betänkande","Val","Dom","EU"],0);
+addQ("Efter debatt?",["Omröstning","Lag","Dom","Kommun"],0);
+addQ("Vem genomför beslut?",["Myndigheter","Domstol","Kung","EU"],0);
+addQ("Vad är lag?",["Regel","Åsikt","Dom","Tal"],0);
+addQ("Vem stiftar lag?",["Riksdagen","Regering","Kommun","EU"],0);
+
+addQ("Skola?",["Kommun","Region","Stat","EU"],0);
+addQ("Sjukvård?",["Region","Kommun","Stat","EU"],0);
+addQ("Försvar?",["Stat","Kommun","Region","EU"],0);
+addQ("Polis?",["Stat","Kommun","Region","EU"],0);
+addQ("Kollektivtrafik?",["Region","Stat","Kommun","EU"],0);
+addQ("Vad är EU?",["Samarbete","Parti","Domstol","Skola"],0);
+
+addQ("Vad gör partier?",["Påverkar politik","Dömer","Skola","Polis"],0);
+addQ("Hur får partier makt?",["Val","Våld","Kung","Företag"],0);
+addQ("Vad skiljer partier?",["Ideer","Ålder","Storlek","Byggnader"],0);
+addQ("Miljöpartiet?",["Miljö","Skatt","Vård","Skola"],0);
+addQ("Socialdemokraterna?",["Välfärd","Miljö","Skatt","EU"],0);
+
+updateScore();
+
+function copyResult(){
+
+let text =
+"Elev: " + document.getElementById("name").value + "\n" +
+"Poäng: " + score + "/40\n\n" +
+
+"Riksdag/Regering:\n" +
+document.getElementById("r3").value + "\n" +
+document.getElementById("r4").value;
+
+navigator.clipboard.writeText(text);
+document.getElementById("msg").textContent = "Kopierat! Klistra in i Teams.";
+}
+
+</script>
 
 </body>
 </html>
