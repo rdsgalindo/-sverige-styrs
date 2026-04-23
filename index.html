@@ -1,225 +1,992 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hur Sverige styrs</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hur Sverige styrs</title>
+  <style>
+    :root{
+      --blue:#1e3a8a;
+      --blue-2:#dbe7ff;
+      --blue-3:#eef4ff;
+      --text:#1f2937;
+      --muted:#4b5563;
+      --bg:#f4f6f9;
+      --border:#d1d5db;
+      --green:#15803d;
+      --red:#b91c1c;
+    }
 
-<style>
-body {font-family: Arial, sans-serif; margin:0; background:#f4f6f9; color:#1f2937;}
-header {background:#1e3a8a; color:white; text-align:center; padding:20px;}
-section {background:white; margin:20px; padding:20px; border-radius:10px;}
-h2 {color:#1e3a8a;}
-h3 {margin-top:25px;}
-button {
-  display:block;
-  margin:6px 0;
-  padding:10px;
-  border:none;
-  border-radius:6px;
-  background:#1e3a8a;
-  color:white;
-  cursor:pointer;
-}
-button:hover {background:#3749c6;}
-textarea {width:100%; height:60px; margin:5px 0;}
-input {width:100%; padding:8px; margin-bottom:10px;}
-.hidden {display:none;}
-.feedback {font-weight:bold; margin-top:5px;}
-.topbox {background:#eef2ff; padding:10px; border-radius:6px;}
-</style>
+    * { box-sizing: border-box; }
 
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    header{
+      background:var(--blue);
+      color:white;
+      padding:24px 16px;
+      text-align:center;
+    }
+
+    header h1{
+      margin:0 0 8px 0;
+      font-size:2rem;
+    }
+
+    nav{
+      background:var(--blue-2);
+      padding:12px;
+      text-align:center;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      border-bottom:1px solid #c7d2fe;
+    }
+
+    nav a{
+      color:var(--blue);
+      text-decoration:none;
+      font-weight:bold;
+      margin:0 10px;
+      display:inline-block;
+      padding:4px 0;
+    }
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 0 10px 30px 10px;
+    }
+
+    section{
+      background:white;
+      margin:20px 0;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    h2{
+      color:var(--blue);
+      margin-top:0;
+    }
+
+    h3{
+      color:var(--blue);
+      margin-top:28px;
+      margin-bottom:10px;
+    }
+
+    .topbox{
+      background:var(--blue-3);
+      border:1px solid #c7d2fe;
+    }
+
+    .card{
+      background:var(--blue-3);
+      border-left:4px solid var(--blue);
+      padding:12px;
+      margin:10px 0;
+      border-radius:8px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
+    .mini-card{
+      background:#f8fafc;
+      border:1px solid var(--border);
+      padding:12px;
+      border-radius:8px;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    .question{
+      padding:14px 0 18px 0;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .question:last-child{
+      border-bottom:none;
+    }
+
+    .question p{
+      margin:0 0 8px 0;
+      font-weight:bold;
+    }
+
+    button{
+      display:block;
+      width:100%;
+      max-width:650px;
+      margin:6px 0;
+      padding:10px 12px;
+      border:none;
+      border-radius:8px;
+      background:var(--blue);
+      color:white;
+      cursor:pointer;
+      text-align:left;
+      font-size:1rem;
+    }
+
+    button:hover{
+      background:#2747a8;
+    }
+
+    .secondary-btn{
+      width:auto;
+      max-width:none;
+      display:inline-block;
+      margin-right:10px;
+    }
+
+    .feedback{
+      margin-top:8px;
+      font-weight:bold;
+    }
+
+    .correct{
+      color:var(--green);
+    }
+
+    .wrong{
+      color:var(--red);
+    }
+
+    textarea, input{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:10px;
+      font:inherit;
+      margin:6px 0 10px 0;
+      background:white;
+    }
+
+    textarea{
+      min-height:72px;
+      resize:vertical;
+    }
+
+    .prompt{
+      font-weight:bold;
+      margin-top:12px;
+      margin-bottom:4px;
+    }
+
+    .example{
+      background:#f8fafc;
+      border:1px dashed #94a3b8;
+      padding:12px;
+      border-radius:8px;
+      margin-top:10px;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    ul, ol{
+      padding-left:22px;
+    }
+
+    @media (max-width:900px){
+      .grid-4{
+        grid-template-columns:1fr 1fr;
+      }
+      .grid-2{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:600px){
+      nav a{
+        margin:4px 8px;
+      }
+      .grid-4{
+        grid-template-columns:1fr;
+      }
+      header h1{
+        font-size:1.6rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Hur Sverige styrs</h1>
+    <p>Fakta, begrepp, quiz och resonemang</p>
+  </header>
 
-<header>
-<h1>Hur Sverige styrs</h1>
-<p>Träna, förstå och resonera</p>
-</header>
+  <nav>
+    <a href="#elev">Elev</a>
+    <a href="#fakta">Fakta</a>
+    <a href="#begrepp">Begrepp</a>
+    <a href="#partier">Partier</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#resonera">Resonera</a>
+  </nav>
 
-<section class="topbox">
-<h2>Elev</h2>
-<input id="name" placeholder="Skriv ditt namn">
-<p><b>Poäng:</b> <span id="score">0</span> / 40</p>
-<button onclick="resetQuiz()">Nollställ quiz</button>
-<button onclick="copyResult()">Kopiera resultat</button>
-<p id="msg"></p>
-</section>
+  <main>
+    <section id="elev" class="topbox">
+      <h2>Elev</h2>
+      <input id="studentName" placeholder="Skriv ditt namn här" />
+      <p><b>Poäng:</b> <span id="score">0</span> / <span id="maxScore">35</span></p>
+      <button class="secondary-btn" onclick="resetQuiz()">Nollställ quiz</button>
+      <button class="secondary-btn" onclick="copyResult()">Kopiera resultat</button>
+      <p id="copyMsg" class="muted"></p>
+    </section>
 
-<section>
-<h2>Fakta</h2>
-<p>Sverige är en demokrati där makten utgår från folket. Medborgarna röstar i val och väljer politiker.</p>
-<p>Sverige är en representativ och parlamentarisk demokrati. Regeringen måste ha stöd av riksdagen.</p>
-<p>Kungen är statschef men har ingen politisk makt.</p>
-</section>
+    <section id="fakta">
+      <h2>Demokrati i Sverige</h2>
+      <p>
+        Sverige är en demokrati. Det betyder att makten utgår från folket.
+        Medborgarna röstar i val och väljer politiker som representerar dem.
+      </p>
+      <p>
+        Sverige är en <b>representativ demokrati</b>, vilket innebär att folket inte
+        röstar om varje enskild fråga, utan väljer representanter som fattar beslut.
+      </p>
+      <p>
+        Sverige är också en <b>parlamentarisk demokrati</b>. Det betyder att
+        regeringen måste ha stöd av riksdagen för att kunna styra landet.
+      </p>
+      <p>
+        Sverige är en <b>monarki</b>. Kungen är statschef men har ingen politisk makt.
+      </p>
 
-<section id="quiz">
-<h2>Quiz (träning)</h2>
-</section>
+      <h3>Riksdagen</h3>
+      <p>
+        Riksdagen är Sveriges högsta beslutande församling och består av
+        <b>349 ledamöter</b>.
+      </p>
+      <ul>
+        <li>Riksdagen stiftar lagar</li>
+        <li>Riksdagen beslutar om statens budget</li>
+        <li>Riksdagen granskar regeringen</li>
+        <li>Riksdagen röstar om statsminister</li>
+      </ul>
+      <p>
+        Riksdagen leds av en <b>talman</b>. Inom riksdagen finns <b>utskott</b> som
+        förbereder frågor innan hela riksdagen fattar beslut.
+      </p>
 
-<section>
-<h2>Resonera och argumentera</h2>
-<p><b>Instruktion:</b> Svara steg för steg. Titta på exempel efteråt.</p>
+      <h3>Regeringen</h3>
+      <p>
+        Regeringen styr landet och leds av <b>statsministern</b>.
+      </p>
+      <ul>
+        <li>Regeringen genomför riksdagens beslut</li>
+        <li>Regeringen styr myndigheter</li>
+        <li>Regeringen lämnar förslag till riksdagen, så kallade propositioner</li>
+      </ul>
+      <p>
+        Regeringen måste ha stöd av riksdagen. Om den inte längre har det kan
+        den tvingas avgå.
+      </p>
 
-<h3>1. Riksdag vs regering</h3>
-<textarea id="r1" placeholder="Vad gör riksdagen?"></textarea>
-<textarea id="r2" placeholder="Vad gör regeringen?"></textarea>
-<textarea id="r3" placeholder="Jag tycker..."></textarea>
-<textarea id="r4" placeholder="Det beror på att..."></textarea>
-<textarea id="r5" placeholder="Ett exempel..."></textarea>
-<textarea id="r6" placeholder="Annat perspektiv..."></textarea>
-<textarea id="r7" placeholder="Bemöt..."></textarea>
-<textarea id="r8" placeholder="Slutsats..."></textarea>
+      <h3>Så blir en lag till</h3>
+      <ol>
+        <li>Ett förslag lämnas in</li>
+        <li>Förslaget kan vara en <b>proposition</b> från regeringen eller en <b>motion</b> från riksdagsledamöter</li>
+        <li>Ett <b>utskott</b> granskar förslaget</li>
+        <li>Utskottet skriver ett <b>betänkande</b></li>
+        <li>Riksdagen debatterar frågan</li>
+        <li>Riksdagen röstar</li>
+        <li>Beslutet genomförs</li>
+      </ol>
 
-<button onclick="toggle('ex1')">Visa exempel</button>
-<div id="ex1" class="hidden">
-<p>Riksdagen har mest makt eftersom den stiftar lagar och bestämmer budget. Regeringen genomför besluten men måste ha riksdagens stöd.</p>
-</div>
+      <h3>Kommun, region, stat och EU</h3>
+      <div class="grid-4">
+        <div class="mini-card">
+          <b>Kommun</b><br>
+          skola<br>
+          förskola<br>
+          äldreomsorg<br>
+          socialtjänst
+        </div>
+        <div class="mini-card">
+          <b>Region</b><br>
+          sjukvård<br>
+          kollektivtrafik
+        </div>
+        <div class="mini-card">
+          <b>Stat</b><br>
+          lagar<br>
+          polis<br>
+          försvar
+        </div>
+        <div class="mini-card">
+          <b>EU</b><br>
+          samarbete mellan europeiska länder
+        </div>
+      </div>
+    </section>
 
-<h3>2. Varför finns utskott?</h3>
-<textarea id="u1" placeholder="Utskott behövs eftersom..."></textarea>
-<textarea id="u2" placeholder="Det leder till..."></textarea>
-<textarea id="u3" placeholder="Exempel..."></textarea>
-<textarea id="u4" placeholder="Annat perspektiv..."></textarea>
-<textarea id="u5" placeholder="Slutsats..."></textarea>
+    <section id="begrepp">
+      <h2>Begrepp</h2>
+      <div class="grid-2">
+        <div>
+          <div class="card"><b>Demokrati</b> – folkstyre</div>
+          <div class="card"><b>Representativ demokrati</b> – folket väljer politiker</div>
+          <div class="card"><b>Parlamentarism</b> – regeringen behöver stöd av riksdagen</div>
+          <div class="card"><b>Ledamot</b> – person i riksdagen</div>
+          <div class="card"><b>Talman</b> – leder riksdagen</div>
+          <div class="card"><b>Utskott</b> – förbereder beslut</div>
+          <div class="card"><b>Proposition</b> – förslag från regeringen</div>
+          <div class="card"><b>Motion</b> – förslag från riksdagsledamot</div>
+          <div class="card"><b>Betänkande</b> – utskottets förslag</div>
+        </div>
+        <div>
+          <div class="card"><b>Mandat</b> – plats i riksdagen</div>
+          <div class="card"><b>Majoritet</b> – fler än hälften</div>
+          <div class="card"><b>Minoritet</b> – mindre än hälften</div>
+          <div class="card"><b>Proportionella val</b> – mandat efter antal röster</div>
+          <div class="card"><b>Statschef</b> – kungen</div>
+          <div class="card"><b>Statsminister</b> – leder regeringen</div>
+          <div class="card"><b>Myndighet</b> – genomför beslut</div>
+          <div class="card"><b>Allmän rösträtt</b> – alla röstberättigade får rösta</div>
+        </div>
+      </div>
+    </section>
 
-<button onclick="toggle('ex2')">Visa exempel</button>
-<div id="ex2" class="hidden">
-<p>Utskott behövs för att förbereda beslut så att lagar blir bättre genomtänkta.</p>
-</div>
+    <section id="partier">
+      <h2>Politiska partier</h2>
+      <div class="card"><b>Socialdemokraterna (S)</b> – välfärd och jämlikhet</div>
+      <div class="card"><b>Moderaterna (M)</b> – arbete och lägre skatter</div>
+      <div class="card"><b>Sverigedemokraterna (SD)</b> – invandring och lag och ordning</div>
+      <div class="card"><b>Centerpartiet (C)</b> – landsbygd och företagande</div>
+      <div class="card"><b>Vänsterpartiet (V)</b> – jämlikhet och stark välfärd</div>
+      <div class="card"><b>Kristdemokraterna (KD)</b> – familj och trygghet</div>
+      <div class="card"><b>Liberalerna (L)</b> – skola och frihet</div>
+      <div class="card"><b>Miljöpartiet (MP)</b> – miljö och klimat</div>
+      <p>Politiska partier skiljer sig åt genom sina idéer om hur samhället ska styras.</p>
+    </section>
 
-<h3>3. Majoritet vs minoritet</h3>
-<textarea id="m1" placeholder="Fördel majoritet..."></textarea>
-<textarea id="m2" placeholder="Nackdel majoritet..."></textarea>
-<textarea id="m3" placeholder="Fördel minoritet..."></textarea>
-<textarea id="m4" placeholder="Nackdel minoritet..."></textarea>
-<textarea id="m5" placeholder="Jag tycker..."></textarea>
+    <section id="quiz">
+      <h2>Quiz</h2>
+      <p class="muted">Frågorna är uppdelade i tydliga block. Välj det alternativ du tycker är rätt. Efteråt kan du nollställa och träna igen.</p>
+      <div id="quizContainer"></div>
+    </section>
 
-<button onclick="toggle('ex3')">Visa exempel</button>
-<div id="ex3" class="hidden">
-<p>Majoritet gör beslut enklare. Minoritet kräver samarbete. Fler perspektiv tas med i minoritetsregering.</p>
-</div>
+    <section id="resonera">
+      <h2>Resonera och argumentera</h2>
+      <p><b>Instruktion:</b> Försök först själv. Titta sedan på modell­svar om du behöver stöd.</p>
 
-</section>
+      <h3>1. Riksdag vs regering</h3>
+      <div class="prompt">Vad gör riksdagen?</div>
+      <textarea id="r1"></textarea>
+      <div class="prompt">Vad gör regeringen?</div>
+      <textarea id="r2"></textarea>
+      <div class="prompt">Jag tycker att ... har mest makt.</div>
+      <textarea id="r3"></textarea>
+      <div class="prompt">Det beror på att ...</div>
+      <textarea id="r4"></textarea>
+      <div class="prompt">Ett exempel är ...</div>
+      <textarea id="r5"></textarea>
+      <div class="prompt">Ett annat perspektiv är att ...</div>
+      <textarea id="r6"></textarea>
+      <div class="prompt">Det stämmer delvis, men ...</div>
+      <textarea id="r7"></textarea>
+      <div class="prompt">Därför tycker jag att ...</div>
+      <textarea id="r8"></textarea>
+      <button class="secondary-btn" onclick="toggleExample('ex1')">Visa exempel</button>
+      <div id="ex1" class="example hidden">
+        Jag tycker att riksdagen har mest makt. Det beror på att riksdagen stiftar lagar och bestämmer budget. Regeringen måste följa dessa beslut. Ett exempel är att regeringen kan lägga en proposition, men riksdagen röstar om den ska bli lag. Ett annat perspektiv är att regeringen styr landet i praktiken. Det stämmer delvis, men regeringen måste ha riksdagens stöd. Därför tycker jag att riksdagen har mest makt.
+      </div>
 
-<script>
+      <h3>2. Varför finns utskott?</h3>
+      <div class="prompt">Utskott behövs eftersom ...</div>
+      <textarea id="u1"></textarea>
+      <div class="prompt">Det leder till att ...</div>
+      <textarea id="u2"></textarea>
+      <div class="prompt">Ett exempel är ...</div>
+      <textarea id="u3"></textarea>
+      <div class="prompt">Ett annat perspektiv är ...</div>
+      <textarea id="u4"></textarea>
+      <div class="prompt">Jag tycker ändå att ...</div>
+      <textarea id="u5"></textarea>
+      <button class="secondary-btn" onclick="toggleExample('ex2')">Visa exempel</button>
+      <div id="ex2" class="example hidden">
+        Utskott behövs eftersom riksdagen måste förbereda beslut noggrant. Det leder till att förslag granskas innan beslut. Ett exempel är att utskott skriver ett betänkande. Ett annat perspektiv är att processen kan bli långsammare. Jag tycker ändå att utskott är viktiga eftersom besluten blir bättre.
+      </div>
 
-let score = 0;
+      <h3>3. Majoritet vs minoritet</h3>
+      <div class="prompt">Fördel med majoritetsregering:</div>
+      <textarea id="m1"></textarea>
+      <div class="prompt">Nackdel med majoritetsregering:</div>
+      <textarea id="m2"></textarea>
+      <div class="prompt">Fördel med minoritetsregering:</div>
+      <textarea id="m3"></textarea>
+      <div class="prompt">Nackdel med minoritetsregering:</div>
+      <textarea id="m4"></textarea>
+      <div class="prompt">Jag tycker att ... eftersom ...</div>
+      <textarea id="m5"></textarea>
+      <button class="secondary-btn" onclick="toggleExample('ex3')">Visa exempel</button>
+      <div id="ex3" class="example hidden">
+        En fördel med majoritetsregering är att det är lättare att fatta beslut. En nackdel är att makten kan bli för koncentrerad. En fördel med minoritetsregering är att samarbete krävs. En nackdel är att beslut kan ta längre tid. Jag tycker att minoritetsregering är bättre eftersom fler perspektiv tas med.
+      </div>
 
-function updateScore(){
-document.getElementById("score").textContent = score;
-}
+      <h3>4. Kommun vs stat</h3>
+      <div class="prompt">Jag tycker att ...</div>
+      <textarea id="k1"></textarea>
+      <div class="prompt">En fördel är ...</div>
+      <textarea id="k2"></textarea>
+      <div class="prompt">Det leder till ...</div>
+      <textarea id="k3"></textarea>
+      <div class="prompt">Ett motargument är ...</div>
+      <textarea id="k4"></textarea>
+      <div class="prompt">Därför ...</div>
+      <textarea id="k5"></textarea>
+      <button class="secondary-btn" onclick="toggleExample('ex4')">Visa exempel</button>
+      <div id="ex4" class="example hidden">
+        Jag tycker att staten bör ta över mer ansvar. En fördel är att det blir mer likvärdigt. Det leder till att skolor kan få samma kvalitet. Ett motargument är att kommuner känner sina invånare bättre. Därför tycker jag ändå att staten bör ha större ansvar.
+      </div>
 
-function resetQuiz(){
-location.reload();
-}
+      <h3>5. Varför finns flera partier?</h3>
+      <div class="prompt">Flera partier behövs eftersom ...</div>
+      <textarea id="p1"></textarea>
+      <div class="prompt">Det gör att ...</div>
+      <textarea id="p2"></textarea>
+      <div class="prompt">Ett problem är ...</div>
+      <textarea id="p3"></textarea>
+      <div class="prompt">Ett annat perspektiv är ...</div>
+      <textarea id="p4"></textarea>
+      <div class="prompt">Därför ...</div>
+      <textarea id="p5"></textarea>
+      <button class="secondary-btn" onclick="toggleExample('ex5')">Visa exempel</button>
+      <div id="ex5" class="example hidden">
+        Flera partier behövs eftersom människor har olika åsikter. Det gör att fler perspektiv representeras. Ett problem är att det kan bli svårt att samarbeta. Ett annat perspektiv är att det stärker demokratin. Därför är flera partier viktiga.
+      </div>
+    </section>
+  </main>
 
-function check(btn, correct, qDiv, correctText){
+  <script>
+    const sections = [
+      {
+        title: "Demokrati och statsskick",
+        questions: [
+          {
+            q: "Vad betyder demokrati?",
+            a: [
+              "Att folket har makten genom val",
+              "Att regeringen bestämmer utan val",
+              "Att kungen styr landet",
+              "Att myndigheter stiftar lagar"
+            ],
+            c: 0
+          },
+          {
+            q: "Vad är representativ demokrati?",
+            a: [
+              "Att folket röstar om varje lag direkt",
+              "Att folket väljer politiker som fattar beslut åt dem",
+              "Att bara riksdagen får rösta",
+              "Att domstolarna bestämmer över regeringen"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad innebär parlamentarism?",
+            a: [
+              "Att statsministern väljs av folket direkt",
+              "Att regeringen måste ha stöd av riksdagen",
+              "Att riksdagen leds av kungen",
+              "Att kommunerna bestämmer över staten"
+            ],
+            c: 1
+          },
+          {
+            q: "Vem är statschef i Sverige?",
+            a: [
+              "Statsministern",
+              "Kungen",
+              "Talmannen",
+              "Finansministern"
+            ],
+            c: 1
+          },
+          {
+            q: "Vilket påstående stämmer om kungen i Sverige?",
+            a: [
+              "Kungen leder regeringen",
+              "Kungen har politisk makt i riksdagen",
+              "Kungen är statschef men har ingen politisk makt",
+              "Kungen utser alla ministrar själv"
+            ],
+            c: 2
+          },
+          {
+            q: "Vad betyder allmän rösträtt?",
+            a: [
+              "Att alla som bor i Sverige alltid får rösta i alla val",
+              "Att alla röstberättigade medborgare har rätt att rösta",
+              "Att alla över 16 år får rösta",
+              "Att alla partier får lika många röster"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad är proportionella val?",
+            a: [
+              "Att det största partiet får alla mandat",
+              "Att mandaten fördelas efter hur många röster partierna får",
+              "Att väljarna röstar på statsministern direkt",
+              "Att varje kommun får lika många mandat"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad är ett mandat?",
+            a: [
+              "Ett förslag från regeringen",
+              "En plats i en folkvald församling",
+              "En omröstning i riksdagen",
+              "En lag som gäller i hela landet"
+            ],
+            c: 1
+          }
+        ]
+      },
+      {
+        title: "Riksdag och regering",
+        questions: [
+          {
+            q: "Hur många ledamöter finns i Sveriges riksdag?",
+            a: [
+              "290",
+              "349",
+              "365",
+              "500"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad är riksdagens viktigaste uppgift?",
+            a: [
+              "Att leda myndigheterna",
+              "Att döma i brottmål",
+              "Att stifta lagar och besluta om budgeten",
+              "Att styra kommunerna"
+            ],
+            c: 2
+          },
+          {
+            q: "Vad är en ledamot?",
+            a: [
+              "En person som sitter i riksdagen",
+              "En person som leder en myndighet",
+              "En person som arbetar i en kommunal nämnd",
+              "En person som är medlem i regeringen"
+            ],
+            c: 0
+          },
+          {
+            q: "Vad gör talmannen?",
+            a: [
+              "Leder regeringen",
+              "Leder riksdagens arbete",
+              "Leder Högsta domstolen",
+              "Leder ett politiskt parti"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad är regeringens uppgift?",
+            a: [
+              "Att stifta alla lagar själv",
+              "Att styra landet och genomföra riksdagens beslut",
+              "Att bestämma över domstolarna",
+              "Att hålla val vart fjärde år"
+            ],
+            c: 1
+          },
+          {
+            q: "Vem leder regeringen?",
+            a: [
+              "Talmannen",
+              "Kungen",
+              "Statsministern",
+              "Riksdagens äldsta ledamot"
+            ],
+            c: 2
+          },
+          {
+            q: "Vad är skillnaden mellan riksdag och regering?",
+            a: [
+              "Riksdagen styr landet och regeringen stiftar lagar",
+              "Riksdagen stiftar lagar och regeringen styr landet",
+              "Riksdagen och regeringen är samma sak",
+              "Regeringen granskar riksdagen"
+            ],
+            c: 1
+          },
+          {
+            q: "När kan en regering behöva avgå?",
+            a: [
+              "När den förlorar riksdagens stöd",
+              "När en kommun röstar nej",
+              "När kungen kräver det",
+              "När ett utskott läggs ned"
+            ],
+            c: 0
+          }
+        ]
+      },
+      {
+        title: "Lagstiftningsprocessen",
+        questions: [
+          {
+            q: "Vad är en proposition?",
+            a: [
+              "Ett förslag från regeringen till riksdagen",
+              "Ett förslag från en riksdagsledamot",
+              "Ett förslag från en kommun",
+              "Ett beslut från ett utskott"
+            ],
+            c: 0
+          },
+          {
+            q: "Vad är en motion?",
+            a: [
+              "Ett förslag från regeringen",
+              "Ett förslag från en eller flera riksdagsledamöter",
+              "Ett färdigt beslut från riksdagen",
+              "Ett förslag från en myndighet"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad gör ett utskott?",
+            a: [
+              "Röstar i stället för riksdagen",
+              "Förbereder ärenden innan riksdagen fattar beslut",
+              "Leder regeringen",
+              "Ser till att kommunerna följer lagen"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad är ett betänkande?",
+            a: [
+              "Ett utskotts förslag till hur riksdagen bör besluta",
+              "En ny grundlag",
+              "En skriftlig fråga till statsministern",
+              "En sammanfattning av valresultatet"
+            ],
+            c: 0
+          },
+          {
+            q: "Vilket steg kommer först när en ny lag ska behandlas?",
+            a: [
+              "Riksdagen röstar",
+              "Ett förslag lämnas in",
+              "Beslutet genomförs",
+              "Ett betänkande skickas till regeringen"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad händer efter att ett utskott har behandlat en fråga?",
+            a: [
+              "Kungen beslutar",
+              "Utskottet skriver ett betänkande",
+              "Kommunerna röstar",
+              "Myndigheterna genomför beslutet direkt"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad händer efter debatten i riksdagen?",
+            a: [
+              "Regeringen avgår automatiskt",
+              "Riksdagen röstar",
+              "Kommunerna tar över frågan",
+              "Frågan skickas tillbaka till väljarna"
+            ],
+            c: 1
+          },
+          {
+            q: "Vem genomför ofta besluten i praktiken?",
+            a: [
+              "Myndigheter",
+              "Talmannen",
+              "Valkretsarna",
+              "Partiledarna"
+            ],
+            c: 0
+          }
+        ]
+      },
+      {
+        title: "Ansvarsnivåer",
+        questions: [
+          {
+            q: "Vem ansvarar främst för grundskolan?",
+            a: [
+              "Regionen",
+              "Kommunen",
+              "Staten",
+              "EU"
+            ],
+            c: 1
+          },
+          {
+            q: "Vem ansvarar främst för sjukvården?",
+            a: [
+              "Kommunen",
+              "Regionen",
+              "Staten",
+              "Riksdagen"
+            ],
+            c: 1
+          },
+          {
+            q: "Vem ansvarar för polis och försvar?",
+            a: [
+              "Kommunen",
+              "Regionen",
+              "Staten",
+              "EU"
+            ],
+            c: 2
+          },
+          {
+            q: "Vem ansvarar oftast för kollektivtrafik i länet?",
+            a: [
+              "Regionen",
+              "Staten",
+              "Kommunfullmäktige",
+              "EU"
+            ],
+            c: 0
+          },
+          {
+            q: "Vad är EU?",
+            a: [
+              "Ett svenskt parti",
+              "En svensk myndighet",
+              "Ett samarbete mellan europeiska länder",
+              "En del av regeringen"
+            ],
+            c: 2
+          }
+        ]
+      },
+      {
+        title: "Partier och politik",
+        questions: [
+          {
+            q: "Vad gör politiska partier i en demokrati?",
+            a: [
+              "De dömer i domstol",
+              "De försöker påverka hur samhället ska styras",
+              "De genomför myndighetsbeslut",
+              "De skriver alla lagar själva"
+            ],
+            c: 1
+          },
+          {
+            q: "Vad skiljer politiska partier åt?",
+            a: [
+              "Deras idéer om hur samhället ska styras",
+              "Hur gamla deras medlemmar är",
+              "Hur många klassrum de har",
+              "Hur många myndigheter de äger"
+            ],
+            c: 0
+          },
+          {
+            q: "Vad betyder majoritet?",
+            a: [
+              "Mindre än hälften",
+              "Exakt hälften",
+              "Mer än hälften",
+              "Inga röster alls"
+            ],
+            c: 2
+          },
+          {
+            q: "Vad betyder minoritet?",
+            a: [
+              "Färre än hälften",
+              "Fler än hälften",
+              "Alla partier tillsammans",
+              "Samma sak som opposition"
+            ],
+            c: 0
+          },
+          {
+            q: "Vilket parti förknippas oftast mest med miljö och klimat?",
+            a: [
+              "Miljöpartiet",
+              "Moderaterna",
+              "Kristdemokraterna",
+              "Sverigedemokraterna"
+            ],
+            c: 0
+          },
+          {
+            q: "Vilket parti förknippas oftast mest med välfärd och jämlikhet?",
+            a: [
+              "Socialdemokraterna",
+              "Centerpartiet",
+              "Liberalerna",
+              "Moderaterna"
+            ],
+            c: 0
+          }
+        ]
+      }
+    ];
 
-if(btn.dataset.clicked === "true") return;
-btn.dataset.clicked = "true";
+    const quizContainer = document.getElementById("quizContainer");
+    const maxScore = document.getElementById("maxScore");
+    const totalQuestions = sections.reduce((sum, section) => sum + section.questions.length, 0);
+    maxScore.textContent = totalQuestions;
 
-let feedback = qDiv.querySelector(".feedback");
-if(!feedback){
-feedback = document.createElement("div");
-feedback.className="feedback";
-qDiv.appendChild(feedback);
-}
+    let score = 0;
 
-if(correct){
-btn.style.background="green";
-feedback.textContent="Rätt!";
-score++;
-}else{
-btn.style.background="red";
-feedback.textContent="Fel. Rätt svar: " + correctText;
-}
+    function updateScore(){
+      document.getElementById("score").textContent = score;
+    }
 
-updateScore();
-}
+    function renderQuiz(){
+      let questionNumber = 1;
 
-function toggle(id){
-document.getElementById(id).classList.toggle("hidden");
-}
+      sections.forEach(section => {
+        const title = document.createElement("h3");
+        title.textContent = section.title;
+        quizContainer.appendChild(title);
 
-function addQ(q,a,c){
-let div=document.createElement("div");
-div.innerHTML="<b>"+q+"</b>";
+        section.questions.forEach(item => {
+          const qDiv = document.createElement("div");
+          qDiv.className = "question";
 
-a.forEach((opt,i)=>{
-let btn=document.createElement("button");
-btn.textContent=opt;
+          const qText = document.createElement("p");
+          qText.innerHTML = `${questionNumber}. ${item.q}`;
+          qDiv.appendChild(qText);
 
-btn.onclick=()=>check(btn,i===c,div,a[c]);
+          const feedback = document.createElement("div");
+          feedback.className = "feedback";
 
-div.appendChild(btn);
-});
+          let locked = false;
 
-quiz.appendChild(div);
-}
+          item.a.forEach((opt, i) => {
+            const btn = document.createElement("button");
+            btn.textContent = opt;
 
-const quiz = document.getElementById("quiz");
+            btn.onclick = () => {
+              if (locked) return;
+              locked = true;
 
-/* 40 frågor */
-addQ("Vad är demokrati?",["Folket bestämmer","Kungen","Militär","Företag"],0);
-addQ("Vad är representativ demokrati?",["Man väljer politiker","Alla röstar","Kung styr","Domstol"],0);
-addQ("Vad innebär parlamentarism?",["Regeringen behöver stöd","Kung styr","Domstol styr","EU styr"],0);
-addQ("Vem är statschef?",["Kungen","Statsminister","Talman","Domare"],0);
-addQ("Har kungen makt?",["Nej","Ja","I krig","I val"],0);
-addQ("Vad är rösträtt?",["Rätt att rösta","Bestämma lag","Döma","Styra"],0);
-addQ("Vad är val?",["Rösta","Lag","Dom","Debatt"],0);
-addQ("Vad är proportionella val?",["Mandat efter röster","Vinnaren får allt","Slump","Kung"],0);
+              const buttons = qDiv.querySelectorAll("button");
+              buttons.forEach(b => b.disabled = true);
 
-addQ("Hur många ledamöter?",["349","100","200","500"],0);
-addQ("Vad gör riksdagen?",["Stiftar lagar","Dömer","Skola","Vård"],0);
-addQ("Vad är ledamot?",["Person i riksdagen","Statsminister","Domare","Chef"],0);
-addQ("Vad gör talman?",["Leder riksdagen","Kung","Regering","Domare"],0);
-addQ("Vad gör regeringen?",["Styr landet","Dömer","Skola","Polis"],0);
-addQ("Vem leder regeringen?",["Statsminister","Kung","Talman","Domare"],0);
-addQ("Vad är proposition?",["Förslag regering","Dom","Lag","Val"],0);
-addQ("Vad är motion?",["Förslag ledamot","Lag","Dom","EU"],0);
-addQ("Vad gör utskott?",["Förbereder beslut","Dömer","Region","Polis"],0);
-addQ("Vad är betänkande?",["Utskottets förslag","Dom","Lag","Val"],0);
-addQ("Majoritet?",["Fler än hälften","Mindre","Lika","Ingen"],0);
-addQ("Minoritet?",["Mindre än hälften","Fler","Alla","Ingen"],0);
+              if (i === item.c) {
+                btn.style.background = "var(--green)";
+                feedback.textContent = "Rätt.";
+                feedback.className = "feedback correct";
+                score++;
+                updateScore();
+              } else {
+                btn.style.background = "var(--red)";
+                feedback.textContent = "Fel. Rätt svar: " + item.a[item.c];
+                feedback.className = "feedback wrong";
+                buttons[item.c].style.background = "var(--green)";
+              }
+            };
 
-addQ("Vad händer först?",["Förslag","Omröstning","Beslut","Dom"],0);
-addQ("Efter utskott?",["Betänkande","Val","Dom","EU"],0);
-addQ("Efter debatt?",["Omröstning","Lag","Dom","Kommun"],0);
-addQ("Vem genomför beslut?",["Myndigheter","Domstol","Kung","EU"],0);
-addQ("Vad är lag?",["Regel","Åsikt","Dom","Tal"],0);
-addQ("Vem stiftar lag?",["Riksdagen","Regering","Kommun","EU"],0);
+            qDiv.appendChild(btn);
+          });
 
-addQ("Skola?",["Kommun","Region","Stat","EU"],0);
-addQ("Sjukvård?",["Region","Kommun","Stat","EU"],0);
-addQ("Försvar?",["Stat","Kommun","Region","EU"],0);
-addQ("Polis?",["Stat","Kommun","Region","EU"],0);
-addQ("Kollektivtrafik?",["Region","Stat","Kommun","EU"],0);
-addQ("Vad är EU?",["Samarbete","Parti","Domstol","Skola"],0);
+          qDiv.appendChild(feedback);
+          quizContainer.appendChild(qDiv);
+          questionNumber++;
+        });
+      });
+    }
 
-addQ("Vad gör partier?",["Påverkar politik","Dömer","Skola","Polis"],0);
-addQ("Hur får partier makt?",["Val","Våld","Kung","Företag"],0);
-addQ("Vad skiljer partier?",["Ideer","Ålder","Storlek","Byggnader"],0);
-addQ("Miljöpartiet?",["Miljö","Skatt","Vård","Skola"],0);
-addQ("Socialdemokraterna?",["Välfärd","Miljö","Skatt","EU"],0);
+    function resetQuiz(){
+      location.reload();
+    }
 
-updateScore();
+    function toggleExample(id){
+      document.getElementById(id).classList.toggle("hidden");
+    }
 
-function copyResult(){
+    function copyResult(){
+      const name = document.getElementById("studentName").value || "(inget namn)";
+      const text =
+`Elev: ${name}
+Poäng: ${score}/${totalQuestions}
 
-let text =
-"Elev: " + document.getElementById("name").value + "\n" +
-"Poäng: " + score + "/40\n\n" +
+Uppgift 1 – Riksdag vs regering
+Vad gör riksdagen? ${document.getElementById("r1").value}
+Vad gör regeringen? ${document.getElementById("r2").value}
+Jag tycker att... ${document.getElementById("r3").value}
+Det beror på att... ${document.getElementById("r4").value}
+Ett exempel är... ${document.getElementById("r5").value}
+Ett annat perspektiv är... ${document.getElementById("r6").value}
+Det stämmer delvis, men... ${document.getElementById("r7").value}
+Därför tycker jag att... ${document.getElementById("r8").value}
 
-"Riksdag/Regering:\n" +
-document.getElementById("r3").value + "\n" +
-document.getElementById("r4").value;
+Uppgift 2 – Varför finns utskott?
+${document.getElementById("u1").value}
+${document.getElementById("u2").value}
+${document.getElementById("u3").value}
+${document.getElementById("u4").value}
+${document.getElementById("u5").value}
 
-navigator.clipboard.writeText(text);
-document.getElementById("msg").textContent = "Kopierat! Klistra in i Teams.";
-}
+Uppgift 3 – Majoritet vs minoritet
+${document.getElementById("m1").value}
+${document.getElementById("m2").value}
+${document.getElementById("m3").value}
+${document.getElementById("m4").value}
+${document.getElementById("m5").value}
 
-</script>
+Uppgift 4 – Kommun vs stat
+${document.getElementById("k1").value}
+${document.getElementById("k2").value}
+${document.getElementById("k3").value}
+${document.getElementById("k4").value}
+${document.getElementById("k5").value}
 
+Uppgift 5 – Varför finns flera partier?
+${document.getElementById("p1").value}
+${document.getElementById("p2").value}
+${document.getElementById("p3").value}
+${document.getElementById("p4").value}
+${document.getElementById("p5").value}`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById("copyMsg").textContent = "Kopierat. Klistra in i Teams eller ett dokument.";
+      }).catch(() => {
+        document.getElementById("copyMsg").textContent = "Det gick inte att kopiera automatiskt.";
+      });
+    }
+
+    renderQuiz();
+    updateScore();
+  </script>
 </body>
 </html>
